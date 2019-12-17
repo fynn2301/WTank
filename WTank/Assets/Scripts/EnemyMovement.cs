@@ -7,7 +7,6 @@ public class EnemyMovement : MonoBehaviour
 {
 
     public Vector3 driveDestination;
-    public int rotSteps;
     public float rotateSpeed;
 
     private NavMeshPath path;
@@ -173,10 +172,7 @@ public class EnemyMovement : MonoBehaviour
             destYRot = 360 + destYRot;
         }
         destYRot = 360 - destYRot;
-
-        destYRot /= rotSteps;
         destYRot = Mathf.RoundToInt(destYRot);
-        destYRot *= rotSteps;
         return destYRot;
     }
 }
