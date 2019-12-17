@@ -301,6 +301,42 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &209152707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209152705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d64991a20c6473abe4b57f9e9340c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alive: 1
+  filterLength: 5
+  rotateSpeed: 3
+  driveSpeed: 0.5
+  rotSteps: 5
+  gun: {fileID: 1129605512}
+  joyStick: {fileID: 1321302927}
+  direction: {x: 0, y: 0}
+  PathSprite: {fileID: 0}
+  printPathTimeDelta: 0.5
+--- !u!114 &209152708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209152705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1af7c677f3a494da52e9811fd03060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExplosionEffectObj: {fileID: 1502941879}
+  DeadCrossObj: {fileID: 933130178}
 --- !u!1 &231170700 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 418574d0100b54e94b44b3431caa51fa,
@@ -7218,6 +7254,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73767e07adddc394d82b994801f89bbb, type: 3}
+--- !u!1 &933130178 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5273223636663417020, guid: 4d26903eb6adf4e4ea71a24cf7161bfc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3976279363736596247}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &965717078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12277,6 +12319,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00649, y: 0.006489999, z: 0.006489999}
   m_Center: {x: 0, y: 0, z: 4.656613e-10}
+--- !u!1 &1129605512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9176538678285912454, guid: 4d26903eb6adf4e4ea71a24cf7161bfc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3976279363736596247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1129605514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129605512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41dd07c2f9a8e48bd8445074c7176528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aimObject: {fileID: 293936583}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1187731152 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5282245804078037656, guid: 418574d0100b54e94b44b3431caa51fa,
@@ -18331,6 +18393,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00649, y: 0.006489999, z: 0.006489999}
   m_Center: {x: 0, y: 0, z: 4.656613e-10}
+--- !u!1 &1502941879 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6495631414636174220, guid: 4d26903eb6adf4e4ea71a24cf7161bfc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3976279363736596247}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1569611433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20505,12 +20573,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: TankBlue
       objectReference: {fileID: 0}
+    - target: {fileID: 4542306808630953988, guid: 4d26903eb6adf4e4ea71a24cf7161bfc,
+        type: 3}
+      propertyPath: ExplosionEffectObj
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542306808630953988, guid: 4d26903eb6adf4e4ea71a24cf7161bfc,
+        type: 3}
+      propertyPath: DeadCrossObj
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9038113582477105070, guid: 4d26903eb6adf4e4ea71a24cf7161bfc,
         type: 3}
       propertyPath: aimObject
       value: 
       objectReference: {fileID: 293936583}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9038113582477105070, guid: 4d26903eb6adf4e4ea71a24cf7161bfc, type: 3}
+    - {fileID: 2642563962638076579, guid: 4d26903eb6adf4e4ea71a24cf7161bfc, type: 3}
+    - {fileID: 4542306808630953988, guid: 4d26903eb6adf4e4ea71a24cf7161bfc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4d26903eb6adf4e4ea71a24cf7161bfc, type: 3}
 --- !u!114 &4442915866428874720 stripped
 MonoBehaviour:
