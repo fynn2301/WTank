@@ -7,7 +7,9 @@ public class PlayerMovement : MonoBehaviour
 {
 
     // player info
+    public InformtionFromMenu passedInfoFroMenu;
     public bool alive = true;
+    public string color;
 
     //filter
     protected Queue<Vector3> filterDataQueue = new Queue<Vector3>();
@@ -25,6 +27,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject joyStick;
     public Vector2 direction;
 
+    // steering otherplayer
+    public GameObject gameManager;
+
     // private
     private bool isRotating = false;
 
@@ -41,10 +46,24 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        direction = LowPassJoystick();
+        Debug.Log(color);
+        Debug.Log(passedInfoFroMenu.GetPlayerIndex());
+        if (color == "Blue" && passedInfoFroMenu.GetPlayerIndex() == 1)
+        {
+            // this player tank
+            direction = LowPassJoystick();
+            gameManager.GetComponent<GameScene>().SetDirectionOfThisPlayer(direction);
+        }
+        else
+        {
+            // other player tank. need to receive jostick info
+            direction = gameManager.GetComponent<GameScene>().directionOtherPlayer;
+        }
+
+        
         if (direction.magnitude > 0 && alive)
         {
-            
+            Debug.Log("should drive");
             RotateTank();
             DriveTank();
 
@@ -106,12 +125,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        Debug.Log("drive");
-        GetComponent<NavMeshObstacle>().enabled = false;
-        GetComponent<NavMeshAgent>().enabled = true;
         GetComponent<NavMeshAgent>().Move(transform.TransformVector(new Vector3(driveSpeed * 3 * Time.deltaTime, 0, 0)));
-        GetComponent<NavMeshAgent>().enabled = false;
-        GetComponent<NavMeshObstacle>().enabled = true;
     }
 
     private float GetJoystickRotation()

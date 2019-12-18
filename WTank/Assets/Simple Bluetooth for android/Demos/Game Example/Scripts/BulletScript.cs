@@ -9,7 +9,6 @@ public class BulletScript : MonoBehaviour {
             Destroy(gameObject);
         }
         else {
-            GameScene.instance.HitByEnemy();
             Destroy(gameObject);
         }
     }

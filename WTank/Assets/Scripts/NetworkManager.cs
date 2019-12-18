@@ -35,19 +35,7 @@ public class NetworkManager : MonoBehaviour {
     void GetMessage(byte[] message) {
         switch ((int)message[0]) {
             case 0:
-                GameScene.instance.PutInBufferPosition(message);
-                break;
-            case 1:
-                GameScene.instance.ShotEnemy();
-                break;
-            case 2:
-                GameScene.instance.HitByPlayer(message[1]);
-                break;
-            case 3:
-                GameScene.instance.DestroyTankPlayer();
-                break;
-            case 4:
-                GameScene.instance.ReturnPlayerToStartingPosion();
+                GameScene.instance.PutInBufferDirection(message);
                 break;
             default:
                 break;

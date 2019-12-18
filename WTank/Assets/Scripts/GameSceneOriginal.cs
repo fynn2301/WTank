@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/*
 public class GameScene : MonoBehaviour {
+    
     public static GameScene instance;
     // Objects
     public GameObject tankPlayer;
@@ -209,4 +210,5 @@ public class GameScene : MonoBehaviour {
     public void ExitScene() {
         NetworkManager.instance.ExitGameScene();
     }
-}
+
+    */

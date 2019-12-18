@@ -5,9 +5,15 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
+    private NavMeshAgent selfAgent;
+
+
+    public GameObject gun;
+    public GameObject destPathObj;
 
     public Vector3 driveDestination;
     public float rotateSpeed;
+    public float driveSpeed;
 
     private NavMeshPath path;
     private float elapsed = 0.0f;
@@ -17,31 +23,41 @@ public class EnemyMovement : MonoBehaviour
     private float destinationYRotation;
     void Start()
     {
+        selfAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
         elapsed = 0.0f;
     }
 
     void Update()
     {
-        // Update the way to the goal every second.
-        elapsed += Time.deltaTime;
-        if (elapsed > 1.0f)
-        {
-            elapsed -= 1.0f;
-            
-
-        }
+        driveDestination = destPathObj.transform.position;
+        RotateTank();
+        Drive();
         NavMesh.CalculatePath(transform.position, driveDestination, NavMesh.AllAreas, path);
         //GetComponent<NavMeshAgent>().SetDestination(driveDestination);
+        DrawPath();
+            
+    }
+
+    private void DrawPath()
+    {
         for (int i = 0; i < path.corners.Length - 1; i++)
             Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
-        
-            
+
     }
 
     private void Drive()
     {
-
+        if (isRotating)
+        {
+            return;
+        }
+        GetComponent<NavMeshObstacle>().enabled = false;
+        GetComponent<NavMeshAgent>().enabled = true;
+        GetComponent<NavMeshAgent>().Move(transform.TransformVector(new Vector3(driveSpeed * 3 * Time.deltaTime, 0, 0)));
+        GetComponent<NavMeshAgent>().velocity = Vector3.zero;
+        GetComponent<NavMeshAgent>().enabled = false;
+        GetComponent<NavMeshObstacle>().enabled = true;
     }
 
     protected void RotateTank()
@@ -61,9 +77,12 @@ public class EnemyMovement : MonoBehaviour
         float destYRot = GetDestinationRotation();
 
         // rotate
+        Debug.Log("DestRot: " + destYRot);
+        Debug.Log("TmpRot: " + tmpYRot);
 
         float rotDif = RotDif(destYRot, tmpYRot);
-        if (Mathf.Abs(rotDif) < rotateSpeed)
+        Debug.Log("RotDif: " + rotDif);
+        if (Mathf.Abs(rotDif) < 1)
         {
 
             tmpRot.y = destYRot;
@@ -85,7 +104,10 @@ public class EnemyMovement : MonoBehaviour
                 return;
             }
         }
-
+        // inheritate gun
+        Vector3 rot = gun.transform.eulerAngles;
+        transform.eulerAngles = tmpRot;
+        gun.transform.eulerAngles = rot;
     }
 
     protected float RotDif(float destRot, float tmpRot)
@@ -161,8 +183,10 @@ public class EnemyMovement : MonoBehaviour
         {
             return 0;
         }
+        //Debug.Log("Corner0: " + path.corners[0]);
+        //Debug.Log("Corner1: " + path.corners[1]);
         Vector3 direction = path.corners[1] - path.corners[0];
-        float destYRot = Mathf.Atan(direction.y / direction.x) * (180 / Mathf.PI);
+        float destYRot = Mathf.Atan(direction.z / direction.x) * (180 / Mathf.PI);
         if (direction.x < 0)
         {
             destYRot += 180;
